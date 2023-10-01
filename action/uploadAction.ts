@@ -77,7 +77,9 @@ async function uploadPhotoToCloudinary(
         return { success: true, result };
       } catch (error: any) {
         console.error("Error uploading file:", error.message);
-        console.error("Server Response:", error.response); // Log the server response
+        console.error("Server Status Code:", error.status); // Log the status code
+        console.error("Server Response Headers:", error.headers); // Log the headers
+        console.error("Server Response Body:", error.response); // Log the response body
         return { success: false, error: error.message };
       }
     });
