@@ -33,31 +33,29 @@ const UploadForm = () => {
     setFiles(updatedFiles);
   };
 
-  const handleUpload = async (e: any) => {
-    e.preventDefault();
-    if (!files.length) {
-      setError("No image files selected.");
-      return;
-    }
-
+  async function handleUploadfile() {
+    if (!files.length) return alert("No image files are selected");
+    if (files.length > 3) return alert("Upload up to 3 image files");
     const formData = new FormData();
+
+    // Assuming you have a file input element.
     files.forEach((file) => {
       formData.append("files", file);
-      console.log(formData);
     });
 
-    const response = await uploadPhoto(formData);
-
-    if (response?.errMsg) {
-      setError(`Error: ${response?.errMsg}`);
-    } else {
-      // Reset the form or perform any other actions on success.
-      formRef.current?.reset();
+    try {
+      const res = await uploadPhoto(formData);
+      if (res?.errMsg) {
+        alert(`Error: ${res?.errMsg}`);
+      }
+    } catch (error) {
+      console.error("Error in handleUploadfile:", error);
+      alert("An error occurred while uploading the file.");
     }
-  };
+  }
 
   return (
-    <form onSubmit={handleUpload} ref={formRef}>
+    <form onSubmit={handleUploadfile} ref={formRef}>
       <div className="bg-gray-300 min-h-[200px] my-3 p-3">
         {error && <p className="text-red-500 font-bold">{error}</p>}
         <input
