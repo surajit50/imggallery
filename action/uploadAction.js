@@ -7,11 +7,14 @@ import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
 import fs from "fs/promises";
 
-cloudinary.config({
+// Configuration options (consider using a config file)
+const cloudinaryConfig = {
   cloud_name: process.env.CLOUDANARY_NAME,
   api_key: process.env.CLOUDANARY_KEY,
   api_secret: process.env.CLOUDANARY_SECRET,
-});
+};
+
+cloudinary.config(cloudinaryConfig);
 
 async function savePhotoToLocal(formData) {
   try {
@@ -29,15 +32,14 @@ async function savePhotoToLocal(formData) {
         const ext = file.type.split("/")[1];
         const uploadDir = path.join(tempdir, `${name}.${ext}`);
 
-        // Convert ArrayBuffer to Buffer using Uint8Array
-        const buffer = Buffer.from(new Uint8Array(data));
+        const buffer = Buffer.from(data);
 
         await fs.writeFile(uploadDir, buffer);
 
         return { filepath: uploadDir, filename: file.name };
       } catch (error) {
         console.error("Error saving file:", error);
-        throw error; // Propagate the error
+        throw new Error("Failed to save photo: " + error.message);
       }
     });
 
@@ -45,16 +47,14 @@ async function savePhotoToLocal(formData) {
     return results;
   } catch (error) {
     console.error("Error in savePhotoToLocal:", error);
-    throw error; // Propagate the error
+    throw new Error("Failed to save photo: " + error.message);
   }
 }
 
 async function uploadPhotoToCloudinary(newFiles) {
   try {
-    // Use map to create an array of upload promises
     const uploadPromises = newFiles.map(async (file) => {
       try {
-        // Upload the file to Cloudinary with a specified folder
         const result = await cloudinary.uploader.upload(file.filepath, {
           folder: "imagegallery",
         });
@@ -66,28 +66,32 @@ async function uploadPhotoToCloudinary(newFiles) {
       }
     });
 
-    // Use Promise.all to await all the individual upload promises
     const results = await Promise.all(uploadPromises);
-
-    // Return an array of upload results (success or error)
     return results;
   } catch (error) {
     console.error("Error in uploadPhotoToCloudinary:", error.message);
-    throw error;
+    throw new Error("Failed to upload photo to Cloudinary: " + error.message);
   }
 }
 
 export async function uploadPhoto(formData) {
   try {
-    //save photo to files to temp folder
     const newFiles = await savePhotoToLocal(formData);
     await uploadPhotoToCloudinary(newFiles);
 
-    //Delete photo files in temp folder after successfull upload!
-    newFiles.map((file) => fs.unlink(file.filepath));
+    // Cleanup temporary files even in case of an error during Cloudinary upload
+    for (const file of newFiles) {
+      try {
+        await fs.unlink(file.filepath);
+      } catch (unlinkError) {
+        console.error("Error deleting file:", unlinkError.message);
+      }
+    }
+
     revalidatePath("/");
     return { msg: "Upload Success" };
   } catch (error) {
+    console.error("Error in uploadPhoto:", error.message);
     return { errMsg: error.message };
   }
 }
@@ -101,6 +105,9 @@ export async function getAllPhotos() {
       .execute();
     return resources;
   } catch (error) {
-    console.error("Error:", error); // Log the error
+    console.error("Error in getAllPhotos:", error.message);
+    throw new Error(
+      "Failed to retrieve photos from Cloudinary: " + error.message
+    );
   }
 }
