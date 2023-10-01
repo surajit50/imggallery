@@ -1,0 +1,15 @@
+export const imgUrl = [
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542688/imagegallery/mario-esposito-_MyEgkRqvvM-unsplash_os3mma.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542685/imagegallery/victor-rosario-5u_nz9i57C8-unsplash_lzjugs.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542684/imagegallery/changhui-lee-O7dwrmkqXCg-unsplash_enqof3.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542677/imagegallery/marek-piwnicki-hMQ3MBB3_s0-unsplash_smi2t0.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542675/imagegallery/victor-rosario-E6rdN0XRHSw-unsplash_vgb2vm.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542668/imagegallery/eberhard-grossgasteiger-Gh2zi68p9Mo-unsplash_jjxbam.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542654/imagegallery/parrish-freeman-PhqXCzK5maA-unsplash_ue8ked.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542500/imagegallery/nikolett-emmert-qu6MLBnXcIA-unsplash_po1myl.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542494/imagegallery/marek-piwnicki-N0J0yalIBB8-unsplash_rta2mu.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542483/imagegallery/chirayu-sharma-27heHQl2JtY-unsplash_ru4jho.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542474/imagegallery/daniel-castellon-XFOp-MPv8Rw-unsplash_cicibq.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542468/imagegallery/miguel-baixauli-z8mmW-01Ats-unsplash_qnjpop.jpg",
+  "https://res.cloudinary.com/dqkmkxgdo/image/upload/v1695542463/imagegallery/daniel-koponyas-efSTj_AifJU-unsplash_zudaux.jpg",
+];
