@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "action/uploadAction.js",
+    "action/uploadAction.ts",
     "components/UploadForm.tsx",
     "components/PhotoList.tsx",
     "components/Nav.tsx"
