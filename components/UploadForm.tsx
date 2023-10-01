@@ -28,7 +28,8 @@ const UploadForm = () => {
     if (!files.length) return alert("No image files are selected");
     if (files.length > 3) return alert("Upload upto 3 image files");
     const formData = new FormData();
-    files.forEach((file) => {
+
+    files.forEach((file: File) => {
       formData.append("files", file);
     });
     const res = await uploadPhoto(formData);
@@ -39,12 +40,7 @@ const UploadForm = () => {
     <form action={handleUploadfile} ref={formRef}>
       <div className="bg-gray-300 min-h-[200px] my-3 p-3">
         <p className="text-red-500 font-bold">{error}</p>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleInputFiles}
-        />
+        <input type="file" accept="image/*" onChange={handleInputFiles} />
 
         <h5 className="text-red-600">
           (*) Only accept image files less than 1mb in size. up to 3 photo files
