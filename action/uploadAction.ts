@@ -5,7 +5,7 @@ const serverUrl = isProduction
 
 export const uploadImage = async (imagePath: string) => {
   try {
-    const response = await fetch(`${serverUrl}/api/upload`, {
+    const response = await fetch(`/api/upload`, {
       method: "POST",
       body: JSON.stringify({
         path: imagePath,
