@@ -11,7 +11,10 @@ export async function POST(request: Request) {
   const { path } = await request.json();
 
   if (!path) {
-    return NextResponse.json({ message: "Image path is required" }, { status: 400 });
+    return NextResponse.json(
+      { message: "Image path is required" },
+      { status: 400 }
+    );
   }
 
   try {
@@ -26,6 +29,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Failed to upload image on Cloudinary" }, { status: 500 });
+    console.log(error);
+    return NextResponse.json(
+      { message: "Failed to upload image on Cloudinary" },
+      { status: 500 }
+    );
   }
 }
