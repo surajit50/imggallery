@@ -22,7 +22,11 @@ const UploadForm = () => {
 
     if (!file.type.includes("image")) {
       alert("Please upload an image!");
+      return;
+    }
 
+    if (file.size <= 2 * 1024 * 1024) {
+      alert("Image size too big");
       return;
     }
 
@@ -44,8 +48,7 @@ const UploadForm = () => {
 
     try {
       const imageUrl = await uploadImage(imagepath);
-      console.log(imageUrl);
-      alert("image upload sucefully");
+      setSubmitting(false);
     } catch (error) {
       console.log(error);
     } finally {
@@ -55,6 +58,8 @@ const UploadForm = () => {
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="bg-gray-300 min-h-[200px] my-3 p-3">
+        <p className="text-red-600"> {submitting ? "Loading" : ""}</p>
+
         <label htmlFor="poster" className="flexCenter form_image-label"></label>
         <input
           type="file"
