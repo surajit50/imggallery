@@ -18,16 +18,16 @@ const UploadForm = () => {
 
     const file = e.target.files?.[0];
 
-    if (!file) return;
+    if (!file) return false;
 
     if (!file.type.includes("image")) {
       alert("Please upload an image!");
-      return;
+      return false;
     }
 
     if (file.size >= 2 * 1024 * 1024) {
       alert("Image size too big");
-      return;
+      return false;
     }
 
     const reader = new FileReader();
