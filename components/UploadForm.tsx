@@ -25,7 +25,7 @@ const UploadForm = () => {
       return;
     }
 
-    if (file.size <= 2 * 1024 * 1024) {
+    if (file.size >= 2 * 1024 * 1024) {
       alert("Image size too big");
       return;
     }
