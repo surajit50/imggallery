@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     const result = await cloudinary.uploader.upload(path, options);
 
-    return NextResponse.json(result, { status: 200 });
+    return NextResponse.json(result, { status: 200 },{ message: "Image path is required" });
   } catch (error) {
     console.log(error);
     return NextResponse.json(
